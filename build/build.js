@@ -60,8 +60,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log(_seating_chart2.default);
-
 	var app = new _vue2.default({
 	  el: "#seating-chart",
 	  template: '<seating_chart ref="seating_chart" :members="members" />',

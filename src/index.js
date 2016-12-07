@@ -1,6 +1,5 @@
 import Vue from "vue";
 import seating_chart from "./seating_chart.vue";
-console.log(seating_chart);
 import members from "./members";
 const app = new Vue({
  el: "#seating-chart",
