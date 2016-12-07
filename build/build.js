@@ -9121,7 +9121,7 @@
 
 
 	// module
-	exports.push([module.id, "\nrect.seat{\n fill: #ffffff;\n stroke: black;\n stroke-width: 2px;\n}\nrect.seated {\n fill: #ffff00;\n}\n", ""]);
+	exports.push([module.id, "\nrect.seat{\n fill: #ffffff;\n stroke: black;\n stroke-width: 2px;\n}\nrect.seated {\n fill: #ffff00;\n}\nrect.empty {\n fill: #dddddd;\n}\n", ""]);
 
 	// exports
 
@@ -9144,8 +9144,8 @@
 
 	exports.default = {
 	  computed: {
-	    isSeated: function isSeated() {
-	      return Boolean(this.name);
+	    isEmpty: function isEmpty() {
+	      return !Boolean(this.name);
 	    },
 	    translate: function translate() {
 	      return "translate(" + this.x + ", " + this.y + ")";
@@ -9166,8 +9166,25 @@
 	      return this.height / 2;
 	    }
 	  },
+	  data: function data() {
+	    return {
+	      isSeated: false
+	    };
+	  },
+	  methods: {
+	    toggleSeated: function toggleSeated() {
+	      if (this.isEmpty) {
+	        return;
+	      }
+	      this.isSeated = !this.isSeated;
+	    }
+	  },
 	  props: ['name', 'x', 'y']
 	}; //
+	//
+	//
+	//
+	//
 	//
 	//
 	//
@@ -9235,19 +9252,23 @@
 	  }, [_h('rect', {
 	    staticClass: "seat",
 	    class: {
-	      seated: _vm.isSeated
+	      empty: _vm.isEmpty, seated: _vm.isSeated
 	    },
 	    attrs: {
 	      "x": "1px",
 	      "y": "1px",
 	      "width": _vm.width + 'px',
 	      "height": _vm.height + 'px'
+	    },
+	    on: {
+	      "click": _vm.toggleSeated
 	    }
 	  }), " ", _h('text', {
 	    attrs: {
 	      "x": _vm.textX + 'px',
 	      "y": _vm.textY + 'px',
 	      "font-size": _vm.fontSize,
+	      "pointer-events": "none",
 	      "text-anchor": "middle",
 	      "dominant-baseline": "central"
 	    }
