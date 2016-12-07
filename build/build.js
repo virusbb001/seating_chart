@@ -9211,13 +9211,13 @@
 	}, _defineProperty(_fontSize$seatMargin$, "seatMargin", 4), _defineProperty(_fontSize$seatMargin$, "table", {
 	  width: 16 * 3,
 	  margin: 8,
-	  // 席の数
-	  seat: 4
+	  // 1テーブル当たりの席の数
+	  seat: 6
 	}), _defineProperty(_fontSize$seatMargin$, "seatingChart", {
 	  // 横のテーブル個数
-	  horizontal: 4,
+	  horizontal: 2,
 	  // 縦のテーブル個数
-	  // vertical: 4,
+	  vertical: 3,
 	  // テーブル同士の幅
 	  margin: 16
 	}), _fontSize$seatMargin$);
@@ -9341,26 +9341,63 @@
 
 /***/ },
 /* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _quiz = __webpack_require__(20);
+
+	var _quiz2 = _interopRequireDefault(_quiz);
+
+	var _config = __webpack_require__(15);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var members = _quiz2.default.personal_quiz.map(function (v) {
+	  return v.name;
+	});
+
+	// shuffle
+	for (var i = 0; i < members.length; i++) {
+	  var l = Math.floor(Math.random() * (members.length - i));
+	  var tmp = members[i];
+	  members[i] = members[i + l];
+	  members[i + l] = tmp;
+	}
+
+	var seat_length = _config2.default.table.seat * _config2.default.seatingChart.horizontal * _config2.default.seatingChart.vertical;
+
+	members = members.concat(Array.from({
+	  length: Math.max(seat_length - members.length, 0)
+	}, function () {
+	  return "";
+	}));
+
+	exports.default = members;
+
+/***/ },
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+	  value: true
 	});
-	exports.default = Array.from({ length: 28 }).map(function (d, i) {
-	   return "\u3042\u3042\u3042(" + i + ")";
-	});
-	/* [
-	   "あああ",
-	   "いいい",
-	   "ううう(え)",
-	   "ううう(お)",
-	   "かあああ",
-	   "きき",
-	   "くくく",
-	];
-	*/
+	exports.default = {
+	  personal_quiz: Array.from({ length: 28 }).map(function (d, i) {
+	    return {
+	      name: "\u540D\u524D(" + i + ")",
+	      quiz: "\u30AF\u30A4\u30BA(" + i + ")"
+	    };
+	  })
+	};
 
 /***/ }
 /******/ ]);
