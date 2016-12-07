@@ -12,15 +12,15 @@ export default {
  table: {
   width: 16 * 3,
   margin: 8,
-  // 席の数
-  seat: 4,
+  // 1テーブル当たりの席の数
+  seat: 6,
  },
 
  seatingChart: {
   // 横のテーブル個数
-  horizontal: 4,
+  horizontal: 2,
   // 縦のテーブル個数
-  // vertical: 4,
+  vertical: 3,
   // テーブル同士の幅
   margin: 16,
  },
