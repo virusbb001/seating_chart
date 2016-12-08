@@ -1,11 +1,13 @@
 <template>
- <svg :width="width" :height="height">
- <g class="seating_chart">
- <g class="table-line" v-for="(table, index) in tables" :transform="translate(index)" >
- <rect_table :members="table"/>
- </g>
- </g>
- </svg>
+ <div>
+  <svg :width="width" :height="height">
+  <g class="seating_chart">
+  <g class="table-line" v-for="(table, index) in tables" :transform="translate(index)" >
+  <rect_table :members="table"/>
+  </g>
+  </g>
+  </svg>
+ </div>
 </template>
 <script>
  "use strict";
@@ -26,9 +28,7 @@ export default {
    return a;
   },
   height(){
-   return this.tableY(
-    Math.ceil(this.members.length / config.table.seat + config.seatingChart.horizontal)
-    );
+   return this.tableY(this.tables.length);
   },
   width(){
    return 1000;
@@ -46,13 +46,14 @@ export default {
   tableY(index){
    var vertical = Math.floor(index / config.seatingChart.horizontal);
    return ((config.seatHeight +
-    config.seatMargin)*2 +
+    config.seatMargin +
+    config.table.margin)*2 +
     config.table.width +
-    config.seatingChart.margin) * vertical;
+    config.seatingChart.margin ) * vertical;
   },
   translate(index){
    return `translate(${this.tableX(index)}, ${this.tableY(index)})`;
-  }
+  },
  },
  components: {
   rect_table,
