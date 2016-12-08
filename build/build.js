@@ -62,9 +62,17 @@
 
 	var app = new _vue2.default({
 	  el: "#seating-chart",
-	  template: '<seating_chart ref="seating_chart" :members="members" />',
+	  template: "<div>\n <seating_chart ref=\"seating_chart\" :members=\"members\" />\n  <button @click=\"save\">save</button>\n  <button @click=\"load\">load</button>\n </div>\n ",
 	  data: { members: _members2.default },
-	  components: { seating_chart: _seating_chart2.default }
+	  components: { seating_chart: _seating_chart2.default },
+	  methods: {
+	    save: function save() {
+	      window.localStorage.setItem("session", JSON.stringify(this.members));
+	    },
+	    load: function load() {
+	      this.members = JSON.parse(window.localStorage.getItem("session"));
+	    }
+	  }
 	});
 	window.app = app;
 	window.Vue = _vue2.default;
@@ -8537,6 +8545,8 @@
 	//
 	//
 	//
+	//
+	//
 
 	"use strict";
 
@@ -8569,7 +8579,7 @@
 	      return a;
 	    },
 	    height: function height() {
-	      return this.tableY(Math.ceil(this.members.length / _config2.default.table.seat + _config2.default.seatingChart.horizontal));
+	      return this.tableY(this.tables.length);
 	    },
 	    width: function width() {
 	      return 1000;
@@ -8584,7 +8594,7 @@
 	    },
 	    tableY: function tableY(index) {
 	      var vertical = Math.floor(index / _config2.default.seatingChart.horizontal);
-	      return ((_config2.default.seatHeight + _config2.default.seatMargin) * 2 + _config2.default.table.width + _config2.default.seatingChart.margin) * vertical;
+	      return ((_config2.default.seatHeight + _config2.default.seatMargin + _config2.default.table.margin) * 2 + _config2.default.table.width + _config2.default.seatingChart.margin) * vertical;
 	    },
 	    translate: function translate(index) {
 	      return "translate(" + this.tableX(index) + ", " + this.tableY(index) + ")";
@@ -9330,7 +9340,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;
-	  return _h('svg', {
+	  return _h('div', [_h('svg', {
 	    attrs: {
 	      "width": _vm.width,
 	      "height": _vm.height
@@ -9348,7 +9358,7 @@
 	        "members": table
 	      }
 	    })])
-	  })])])
+	  })])])])
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 	if (false) {
